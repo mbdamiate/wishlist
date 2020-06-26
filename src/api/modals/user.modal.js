@@ -14,10 +14,9 @@ const find = (limit = 100, offset = 0) => {
 
 const findById = (id) => {
   return query('SELECT to_json(whishlist_user_find_by_id($1))', [id])
-    .then((result) => {
-      console.log(result)
-      // const result = rows.map((row) => row['to_json'])
-      return result
+    .then(({ rows }) => {
+      const result = rows.map((row) => row['to_json'])
+      return { result }
     })
     .catch((error) => {
       console.error(error)
