@@ -3,6 +3,6 @@ const route = Router()
 
 const controller = require('../controller/home.controller')
 
-route.get('/', controller.getMessage)
+route.get('/', controller.welcome)
 
 module.exports = route

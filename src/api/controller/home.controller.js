@@ -1,8 +1,10 @@
 
-const getMessage = (_, res) => {
-  res.send('Home!!!')
+const welcome = (_, res) => {
+  res.send({
+    message: 'Welcome!'
+  })
 }
 
 module.exports = {
-  getMessage
+  welcome
 }
