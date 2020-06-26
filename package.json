@@ -2,11 +2,15 @@
   "name": "whishlist",
   "version": "1.0.0",
   "description": "Sample Whishlist",
+  "license": "MIT",
   "author": {
     "name": "Matheus Bruno Damiate",
     "email": "mbdamiate@gmail.com"
   },
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbdamiate/whishlist.git"
+  },
   "main": "src/index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
