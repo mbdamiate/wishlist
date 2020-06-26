@@ -13,8 +13,13 @@ const bodyValidFullName = validator.body('fullName')
   .exists().withMessage('must be exists')
   .isLength({ min: 5 }).withMessage('must be a valid name')
 
+const queryValidEmail = validator.query('email')
+  .if(validator.query('email').exists())
+  .isEmail().withMessage('must be a valid email')
+
 module.exports = {
   paramValidId,
   bodyValidEmail,
-  bodyValidFullName
+  bodyValidFullName,
+  queryValidEmail
 }
