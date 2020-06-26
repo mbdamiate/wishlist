@@ -3,9 +3,11 @@ docker-compose build
 
 # RUN PROD
 docker-compose up
+docker-compose --rmi local --volumes --remove-orphans
 
 # DEV (BUILD AND RUN)
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --rmi local --volumes --remove-orphans
 
 # PROD LIBS
 pm2 - Para garatir estabilidade

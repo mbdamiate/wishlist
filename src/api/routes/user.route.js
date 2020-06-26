@@ -1,3 +1,4 @@
+
 const { Router } = require('express')
 const route = Router()
 const { validationResult } = require('express-validator')
@@ -12,29 +13,66 @@ const {
 
 route.get('/',
   [queryValidEmail],
-  (req, res) => validationResult(req).isEmpty()
-    ? controller.find(req, res)
-    : res
-      .status(422)
-      .json({ errors: validationResult(req).array() })
-)
+  (req, res) => {
+    const result = validationResult(req)
+    if (result.isEmpty()) {
+      controller.find(req, res)
+    }
 
-route.get('/:id',
-  [paramValidId],
-  (req, res) => validationResult(req).isEmpty()
-    ? controller.findById(req, res)
-    : res
-      .status(422)
-      .json({ errors: validationResult(req).array() })
+    else {
+      res
+        .status(422)
+        .json({ errors: result.array() })
+    }
+  }
 )
 
 route.post('/',
   [bodyValidEmail, bodyValidFullName],
-  (req, res) => validationResult(req).isEmpty()
-    ? controller.create(req, res)
-    : res
-      .status(422)
-      .json({ errors: validationResult(req).array() })
+  (req, res) => {
+    const result = validationResult(req)
+    if (result.isEmpty()) {
+      controller.create(req, res)
+    }
+
+    else {
+      res
+        .status(422)
+        .json({ errors: validationResult(req).array() })
+    }
+  }
+)
+
+route.get('/:id',
+  [paramValidId],
+  (req, res) => {
+    const result = validationResult(req)
+    if (result.isEmpty()) {
+      controller.findById(req, res)
+    }
+
+    else {
+      res
+        .status(422)
+        .json({ errors: validationResult(req).array() })
+    }
+  }
+)
+
+route.put('/:id',
+  [paramValidId],
+  (req, res) => {
+    const result = validationResult(req)
+    if (result.isEmpty()) {
+      controller.update(req, res)
+    }
+
+    else {
+      res
+        .status(422)
+        .json({ errors: validationResult(req).array() })
+    }
+  }
 )
 
 module.exports = route
