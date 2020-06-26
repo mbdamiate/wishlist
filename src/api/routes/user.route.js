@@ -2,11 +2,16 @@ const { Router } = require('express')
 const route = Router()
 const { validationResult } = require('express-validator')
 
-const { paramValidId, bodyValidEmail, bodyValidFullName } = require('../validators/user.validators')
 const controller = require('../controller/user.controller')
+const {
+  paramValidId,
+  bodyValidEmail,
+  bodyValidFullName,
+  queryValidEmail
+} = require('../validators/user.validators')
 
 route.get('/',
-  [],
+  [queryValidEmail],
   (req, res) => validationResult(req).isEmpty()
     ? controller.find(req, res)
     : res
