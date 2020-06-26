@@ -14,13 +14,13 @@ BEGIN
     VALUES
         (uuid_token, email_token, full_name_token);
 
-    RETURN uuid_token;    
+    RETURN uuid_token;
 
 END;
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION IF EXISTS whishlist_user_find(INT);
-CREATE FUNCTION whishlist_user_find(limit_token INT)
+DROP FUNCTION IF EXISTS whishlist_user_find(INT, INT);
+CREATE FUNCTION whishlist_user_find(limit_token INT, offset_token INT)
 RETURNS TABLE (
     id         UUID,
     email      TEXT,
@@ -37,8 +37,36 @@ BEGIN
         whishlist_user
     ORDER BY
         whishlist_user.created_at
+    OFFSET
+        offset_token ROWS
     FETCH
         FIRST limit_token ROWS ONLY;
+
+END;
+$$ LANGUAGE plpgsql;
+
+DROP FUNCTION IF EXISTS whishlist_user_find_by_id(UUID);
+CREATE FUNCTION whishlist_user_find_by_id(id_token UUID)
+RETURNS TABLE (
+    id         UUID,
+    email      TEXT,
+    full_name  TEXT
+) AS $$
+BEGIN
+
+    RETURN QUERY 
+    SELECT
+        whishlist_user.id,
+        whishlist_user.email,
+        whishlist_user.full_name
+    FROM
+        whishlist_user
+    WHERE
+        whishlist_user.id = id_token
+    ORDER BY
+        whishlist_user.created_at
+    FETCH
+        FIRST 1 ROWS ONLY;
 
 END;
 $$ LANGUAGE plpgsql;
