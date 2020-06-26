@@ -25,13 +25,13 @@ const find = (req, res) => {
 const findById = (req, res) => {
   const { id } = req.params
   modal.findById(id)
-    .then((result) => {
+    .then(({ result }) => {
       console.log(result)
-      const [first] = result[0]
+      const [first] = result
       if (result.length > 0)
         res
           .status(200)
-          .send(result[0])
+          .send(first)
       else
         res
           .status(404)
