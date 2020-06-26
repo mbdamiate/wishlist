@@ -24,6 +24,18 @@ const findById = (id) => {
     })
 }
 
+const findByEmail = (email) => {
+  return query('SELECT to_json(whishlist_user_find_by_email($1))', [email])
+    .then(({ rows }) => {
+      const result = rows.map((row) => row['to_json'])
+      return { result }
+    })
+    .catch((error) => {
+      console.error(error)
+      return { ...error }
+    })
+}
+
 const insert = (email, fullName) => {
   return query('SELECT whishlist_user_insert($1, $2) AS id', [email, fullName])
     .then(({ rows }) => {
@@ -43,5 +55,6 @@ const insert = (email, fullName) => {
 module.exports = {
   find,
   findById,
+  findByEmail,
   insert
 }

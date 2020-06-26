@@ -40,7 +40,6 @@ const find = (req, res) => {
  */
 const findById = (req, res) => {
   const { id } = req.params
-<<<<<<< HEAD
   return repository.findById(id)
     .then(({ result }) => {
       if (result) {
@@ -50,18 +49,6 @@ const findById = (req, res) => {
       }
       else {
         return res
-=======
-  modal.findById(id)
-    .then(({ result }) => {
-      console.log(result)
-      const [first] = result
-      if (result.length > 0)
-        res
-          .status(200)
-          .send(first)
-      else
-        res
->>>>>>> 7f24418... Update user 'find by id'
           .status(404)
           .send()
       }

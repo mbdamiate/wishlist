@@ -5,6 +5,12 @@ const route = Router()
 const validator = require('../middlewares/validator.middleware')
 const validation = require('../validators/user.validators')
 const controller = require('../controller/user.controller')
+const {
+  paramValidId,
+  bodyValidEmail,
+  bodyValidFullName,
+  queryValidEmail
+} = require('../validators/user.validators')
 
 /**
  * @apiDefine UserCreated
