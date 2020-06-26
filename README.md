@@ -1,7 +1,10 @@
-# PROD
-docker-compose up --build
+# BUILD PROD
+docker-compose build
 
-# DEV
+# RUN PROD
+docker-compose up
+
+# DEV (BUILD AND RUN)
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 
 # PROD LIBS
