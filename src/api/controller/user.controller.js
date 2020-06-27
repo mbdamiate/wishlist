@@ -1,72 +1,69 @@
 
 const modal = require('../modals/user.modal')
 
-const find = (req, res) => {
+const list = (req, res) => {
   const { limit, offset } = req.query
-  const { email } = req.query
 
-  if (email) {
-    return modal.findByEmail(email)
-      .then(({ result }) => {
-        if (result.length > 0) {
-          return res
-            .status(200)
-            .send(result)
-        }
-
-        else {
-          return res
-            .status(404)
-            .send({ error: 404, message: 'Not found' })
-        }
-      })
-      .catch((error) => {
-        return res
-          .status(500)
-          .send(error)
-      })
-  }
-
-  else {
-    return modal.find(limit, offset)
-      .then(({ result }) => {
-        if (result.length > 0) {
-          return res
-            .status(200)
-            .send(result)
-        }
-
-        else {
-          res
-            .status(404)
-            .send({ error: 404, message: 'Not found' })
-        }
-      })
-      .catch((error) => {
-        return res
-          .status(500)
-          .send(error)
-      })
-  }
-}
-
-const findById = (req, res) => {
-  const { id } = req.params
-
-  return modal.findById(id)
-    .then(({ result }) => {
-      const [first] = result
-
-      if (result.length > 0) {
+  return modal.select(limit, offset)
+    .then(({ rowCount, result }) => {
+      if (rowCount > 0) {
         return res
           .status(200)
-          .send(first)
+          .send(result)
+      }
+
+      else {
+        res
+          .status(404)
+          .send()
+      }
+    })
+    .catch((error) => {
+      return res
+        .status(500)
+        .send(error)
+    })
+}
+
+const searchById = (req, res) => {
+  const { id } = req.params
+
+  return modal.selectById(id)
+    .then(({ result }) => {
+      if (result) {
+        return res
+          .status(200)
+          .send(result)
       }
 
       else {
         return res
           .status(404)
-          .send({ error: 404, message: 'Not found' })
+          .send()
+      }
+    })
+    .catch((error) => {
+      return res
+        .status(500)
+        .send(error)
+    })
+}
+
+const searchByEmail = (req, res) => {
+  const { email } = req.params
+
+  return modal.selectByEmail(email)
+    .then(({ result }) => {
+      if (result) {
+        return res
+          .status(200)
+          .send(result)
+      }
+
+      else {
+        return res
+          .status(404)
+          .send()
       }
     })
     .catch((error) => {
@@ -79,27 +76,18 @@ const findById = (req, res) => {
 const create = (req, res) => {
   const { email, fullName } = req.body
 
-  return modal.findByEmail(email)
-    .then(({ result }) => {
-      const [first] = result
-
-      return { first }
-    })
-    .then(({ first }) => {
-      if (first) {
+  return modal.insert(email, fullName)
+    .then(({ resultId }) => {
+      if (resultId === '00000000-0000-0000-0000-000000000000') {
         return res
           .status(409)
-          .send({ message: 'Email already used!' })
+          .send()
       }
 
       else {
-        return modal.insert(email, fullName)
-          .then(({ resultId }) => {
-            const [id] = resultId
-            return res
-              .status(201)
-              .send({ id })
-          })
+        return res
+          .status(201)
+          .send({ id: resultId })
       }
     })
     .catch((error) => {
@@ -113,25 +101,42 @@ const update = (req, res) => {
   const { id } = req.params
   const { fullName } = req.body
 
-  return modal.findById(id)
-    .then(({ result }) => {
-      const [first] = result
-
-      if (result.length > 0) {
-        return modal.update(id, first.email, fullName)
-          .then(({ resultId }) => {
-            const [id] = resultId
-
-            return res
-              .status(201)
-              .send({ id })
-          })
+  return modal.update(id, fullName)
+    .then(({ resultId }) => {
+      if (resultId === id) {
+        return res
+          .status(304)
+          .send()
       }
 
       else {
         return res
+          .status(201)
+          .send({ id: resultId })
+      }
+    })
+    .catch((error) => {
+      return res
+        .status(500)
+        .send(error)
+    })
+}
+
+const remove = (req, res) => {
+  const { id } = req.params
+
+  return modal.remove(id)
+    .then(({ resultId }) => {
+      if (resultId === '00000000-0000-0000-0000-000000000000') {
+        return res
           .status(404)
-          .send({ error: 404, message: 'Not found' })
+          .send()
+      }
+
+      else {
+        return res
+          .status(200)
+          .send()
       }
     })
     .catch((error) => {
@@ -142,8 +147,10 @@ const update = (req, res) => {
 }
 
 module.exports = {
-  find,
-  findById,
+  list,
+  searchById,
+  searchByEmail,
   create,
-  update
+  update,
+  remove
 }
