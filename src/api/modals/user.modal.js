@@ -25,9 +25,9 @@ const selectById = (id) => {
 
 const selectByEmail = (email) => {
   return query('SELECT to_json(whishlist_user_select_by_email($1))', [email])
-    .then(({ rowCount, rows }) => {
+    .then(({ rows }) => {
       const [result] = rows.map((row) => row['to_json'])
-      return { rowCount, result }
+      return { result }
     })
     .catch((error) => {
       return { ...error }
@@ -36,9 +36,9 @@ const selectByEmail = (email) => {
 
 const insert = (email, fullName) => {
   return query('SELECT to_json(whishlist_user_insert($1, $2))', [email, fullName])
-    .then(({ rowCount, rows }) => {
+    .then(({ rows }) => {
       const [resultId] = rows.map((row) => row['to_json'])
-      return { resultId, rowCount }
+      return { resultId }
     })
     .catch((error) => {
       throw { ...error }
@@ -47,9 +47,9 @@ const insert = (email, fullName) => {
 
 const update = (id, fullName) => {
   return query('SELECT to_json(whishlist_user_update($1, $2))', [id, fullName])
-    .then(({ rowCount, rows }) => {
+    .then(({ rows }) => {
       const [resultId] = rows.map((row) => row['to_json'])
-      return { resultId, rowCount }
+      return { resultId }
     })
     .catch((error) => {
       throw { ...error }
