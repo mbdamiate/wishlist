@@ -3,7 +3,6 @@ const modal = require('../modals/user.modal')
 
 const searchAll = (req, res) => {
   const { limit, offset } = req.query
-
   return modal.select(limit, offset)
     .then(({ rowCount, result }) => {
       if (rowCount > 0) {
@@ -11,7 +10,6 @@ const searchAll = (req, res) => {
           .status(200)
           .send(result)
       }
-
       else {
         res
           .status(404)
@@ -27,7 +25,6 @@ const searchAll = (req, res) => {
 
 const searchById = (req, res) => {
   const { id } = req.params
-
   return modal.selectById(id)
     .then(({ result }) => {
       if (result) {
@@ -35,7 +32,6 @@ const searchById = (req, res) => {
           .status(200)
           .send(result)
       }
-
       else {
         return res
           .status(404)
@@ -51,7 +47,6 @@ const searchById = (req, res) => {
 
 const searchByEmail = (req, res) => {
   const { email } = req.params
-
   return modal.selectByEmail(email)
     .then(({ result }) => {
       if (result) {
@@ -59,7 +54,6 @@ const searchByEmail = (req, res) => {
           .status(200)
           .send(result)
       }
-
       else {
         return res
           .status(404)
@@ -75,7 +69,6 @@ const searchByEmail = (req, res) => {
 
 const create = (req, res) => {
   const { email, fullName } = req.body
-
   return modal.insert(email, fullName)
     .then(({ resultId }) => {
       if (resultId === '00000000-0000-0000-0000-000000000000') {
@@ -83,7 +76,6 @@ const create = (req, res) => {
           .status(409)
           .send()
       }
-
       else {
         return res
           .status(201)
@@ -100,7 +92,6 @@ const create = (req, res) => {
 const update = (req, res) => {
   const { id } = req.params
   const { fullName } = req.body
-
   return modal.update(id, fullName)
     .then(({ resultId }) => {
       if (resultId === id) {
@@ -108,7 +99,6 @@ const update = (req, res) => {
           .status(304)
           .send()
       }
-
       else {
         return res
           .status(201)
@@ -124,7 +114,6 @@ const update = (req, res) => {
 
 const remove = (req, res) => {
   const { id } = req.params
-
   return modal.remove(id)
     .then(({ resultId }) => {
       if (resultId === '00000000-0000-0000-0000-000000000000') {
@@ -132,7 +121,6 @@ const remove = (req, res) => {
           .status(404)
           .send()
       }
-
       else {
         return res
           .status(200)
