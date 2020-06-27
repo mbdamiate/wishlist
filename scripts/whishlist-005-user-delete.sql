@@ -4,22 +4,7 @@ CREATE FUNCTION whishlist_user_delete(id_token UUID)
 RETURNS UUID AS $$
 BEGIN
 
-    IF EXISTS (
-        SELECT
-            1
-        FROM
-            whishlist_user
-        WHERE
-            id = id_token
-            AND
-            updated_at IS NULL
-            AND
-            deleted_at IS NULL
-        ORDER BY
-            created_at DESC
-        FETCH
-            FIRST 1 ROWS ONLY
-        ) THEN
+    IF (id_token = (SELECT id FROM whishlist_user WHERE updated_at IS NULL AND deleted_at IS NULL ORDER BY created_at DESC FETCH FIRST 1 ROW ONLY)) THEN
         UPDATE
             whishlist_user
         SET
