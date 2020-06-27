@@ -1,11 +1,12 @@
 
 DROP TABLE IF EXISTS whishlist_user;
 CREATE TABLE IF NOT EXISTS whishlist_user (
+    id          UUID        NOT NULL,
     email       TEXT        NOT NULL,
     full_name   TEXT        NOT NULL,
     
-    id          UUID        NOT NULL,
     created_at  TIMESTAMP   NULL        DEFAULT NOW(),
-    was_updated BOOLEAN     NOT NULL    DEFAULT FALSE,
+    updated_at  TIMESTAMP   NULL,
+    deleted_at  TIMESTAMP   NULL,
     PRIMARY KEY (id)
 );

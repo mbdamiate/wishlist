@@ -1,6 +1,6 @@
 
-DROP FUNCTION IF EXISTS whishlist_user_find_by_email(TEXT);
-CREATE FUNCTION whishlist_user_find_by_email(email_token TEXT)
+DROP FUNCTION IF EXISTS whishlist_user_select(INT, INT);
+CREATE FUNCTION whishlist_user_select(limit_token INT, offset_token INT)
 RETURNS TABLE (
     id         UUID,
     email      TEXT,
@@ -25,12 +25,12 @@ BEGIN
         whishlist_user.updated_at IS NULL
         AND
         whishlist_user.deleted_at IS NULL
-        AND
-        whishlist_user.email = email_token
     ORDER BY
-        whishlist_user.created_at DESC
+        whishlist_user.created_at
+    OFFSET
+        offset_token ROWS
     FETCH
-        FIRST 1 ROWS ONLY;
+        FIRST limit_token ROWS ONLY;
 
 END;
 $$ LANGUAGE plpgsql;
