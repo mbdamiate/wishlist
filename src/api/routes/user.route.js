@@ -10,7 +10,7 @@ const validation = require('../validators/user.validators')
 route.get('/',
   validation.queryValidEmail,
   validator,
-  controller.list
+  controller.searchAll
 )
 
 route.post('/',

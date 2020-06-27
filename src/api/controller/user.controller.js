@@ -1,7 +1,7 @@
 
 const modal = require('../modals/user.modal')
 
-const list = (req, res) => {
+const searchAll = (req, res) => {
   const { limit, offset } = req.query
 
   return modal.select(limit, offset)
@@ -87,7 +87,7 @@ const create = (req, res) => {
       else {
         return res
           .status(201)
-          .send({ id: resultId })
+          .send()
       }
     })
     .catch((error) => {
@@ -147,7 +147,7 @@ const remove = (req, res) => {
 }
 
 module.exports = {
-  list,
+  searchAll,
   searchById,
   searchByEmail,
   create,
