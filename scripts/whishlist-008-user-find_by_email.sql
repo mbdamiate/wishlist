@@ -4,10 +4,7 @@ CREATE FUNCTION whishlist_user_find_by_email(email_token TEXT)
 RETURNS TABLE (
     id         UUID,
     email      TEXT,
-    full_name  TEXT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    deleted_at TIMESTAMP
+    full_name  TEXT
 ) AS $$
 BEGIN
 
@@ -15,12 +12,8 @@ BEGIN
     SELECT
         whishlist_user.id,
         whishlist_user.email,
-        whishlist_user.full_name,
-        whishlist_user.created_at,
-        whishlist_user.updated_at,
-        whishlist_user.deleted_at
-    FROM
-        whishlist_user
+        whishlist_user.full_name
+    FROM whishlist_user
     WHERE
         whishlist_user.updated_at IS NULL
         AND
@@ -29,8 +22,7 @@ BEGIN
         whishlist_user.email = email_token
     ORDER BY
         whishlist_user.created_at DESC
-    FETCH
-        FIRST 1 ROWS ONLY;
+    FETCH FIRST 1 ROWS ONLY;
 
 END;
 $$ LANGUAGE plpgsql;
