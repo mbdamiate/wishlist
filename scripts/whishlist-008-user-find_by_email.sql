@@ -4,7 +4,10 @@ CREATE FUNCTION whishlist_user_find_by_email(email_token TEXT)
 RETURNS TABLE (
     id         UUID,
     email      TEXT,
-    full_name  TEXT
+    full_name  TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    deleted_at TIMESTAMP
 ) AS $$
 BEGIN
 
