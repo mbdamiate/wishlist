@@ -62,11 +62,11 @@ const update = (id, fullName) => {
 }
 
 const remove = (id) => {
-  return query('SELECT whishlist_user_delete($1)', [id])
-    .then(({ rowCount, rows }) => {
+  return query('SELECT to_json(whishlist_user_delete($1))', [id])
+    .then(({ rows }) => {
       const [resultId] = rows.map((row) => row['to_json'])
 
-      return { resultId, rowCount }
+      return { resultId }
     })
     .catch((error) => {
       throw { ...error }
