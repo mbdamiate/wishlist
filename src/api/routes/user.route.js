@@ -6,6 +6,7 @@ const validator = require('../middlewares/validator.middleware')
 const validation = require('../validators/user.validators')
 const controller = require('../controller/user.controller')
 const validation = require('../validators/user.validators')
+const controller = require('../controller/user.controller')
 
 /**
  * @apiDefine UserCreated
