@@ -3,9 +3,8 @@ const { Router } = require('express')
 const route = Router()
 
 const validator = require('../middlewares/validator.middleware')
-
-const controller = require('../controller/user.controller')
 const validation = require('../validators/user.validators')
+const controller = require('../controller/user.controller')
 
 route.get('/',
   validation.queryValidEmail,
