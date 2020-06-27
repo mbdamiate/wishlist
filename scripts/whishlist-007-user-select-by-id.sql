@@ -1,6 +1,6 @@
 
-DROP FUNCTION IF EXISTS whishlist_user_find_by_email(TEXT);
-CREATE FUNCTION whishlist_user_find_by_email(email_token TEXT)
+DROP FUNCTION IF EXISTS whishlist_user_select_by_id(UUID);
+CREATE FUNCTION whishlist_user_select_by_id(id_token UUID)
 RETURNS TABLE (
     id         UUID,
     email      TEXT,
@@ -26,7 +26,7 @@ BEGIN
         AND
         whishlist_user.deleted_at IS NULL
         AND
-        whishlist_user.email = email_token
+        whishlist_user.id = id_token
     ORDER BY
         whishlist_user.created_at DESC
     FETCH

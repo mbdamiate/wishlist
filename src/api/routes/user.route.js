@@ -1,78 +1,47 @@
 
 const { Router } = require('express')
 const route = Router()
-const { validationResult } = require('express-validator')
+
+const validator = require('../middlewares/validator.middleware')
 
 const controller = require('../controller/user.controller')
-const {
-  paramValidId,
-  bodyValidEmail,
-  bodyValidFullName,
-  queryValidEmail
-} = require('../validators/user.validators')
+const validation = require('../validators/user.validators')
 
 route.get('/',
-  [queryValidEmail],
-  (req, res) => {
-    const result = validationResult(req)
-    if (result.isEmpty()) {
-      controller.find(req, res)
-    }
-
-    else {
-      res
-        .status(422)
-        .json({ errors: result.array() })
-    }
-  }
+  validation.queryValidEmail,
+  validator,
+  controller.list
 )
 
 route.post('/',
-  [bodyValidEmail, bodyValidFullName],
-  (req, res) => {
-    const result = validationResult(req)
-    if (result.isEmpty()) {
-      controller.create(req, res)
-    }
-
-    else {
-      res
-        .status(422)
-        .json({ errors: validationResult(req).array() })
-    }
-  }
+  validation.bodyValidEmail,
+  validation.bodyValidFullName,
+  validator,
+  controller.create
 )
 
 route.get('/:id',
-  [paramValidId],
-  (req, res) => {
-    const result = validationResult(req)
-    if (result.isEmpty()) {
-      controller.findById(req, res)
-    }
+  validation.paramValidId,
+  validator,
+  controller.searchById
+)
 
-    else {
-      res
-        .status(422)
-        .json({ errors: validationResult(req).array() })
-    }
-  }
+route.get('/:email',
+  validation.paramValidEmail,
+  validator,
+  controller.searchByEmail
 )
 
 route.put('/:id',
-  [paramValidId],
-  (req, res) => {
-    const result = validationResult(req)
-    if (result.isEmpty()) {
-      controller.update(req, res)
-    }
+  validation.paramValidId,
+  validator,
+  controller.update
+)
 
-    else {
-      res
-        .status(422)
-        .json({ errors: validationResult(req).array() })
-    }
-  }
+route.delete('/:id',
+  validation.paramValidId,
+  validator,
+  controller.remove
 )
 
 module.exports = route
