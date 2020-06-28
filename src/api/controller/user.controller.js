@@ -19,6 +19,7 @@ const find = (req, res) => {
           .status(200)
           .send({ users: result })
       }
+      
       else {
         return res
           .status(404)
