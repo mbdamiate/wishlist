@@ -106,7 +106,7 @@ const create = (req, res) => {
       else {
         return res
           .status(201)
-          .send()
+          .send({ id: resultId })
       }
     })
     .catch((error) => {
