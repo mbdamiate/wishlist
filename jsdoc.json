@@ -29,7 +29,7 @@
     "showInheritedInNav": true
   },
   "opts": {
-    "destination": "./docs/",
+    "destination": "./jsdocs/",
     "encoding": "utf8",
     "private": true,
     "recurse": true,
