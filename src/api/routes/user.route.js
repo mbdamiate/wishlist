@@ -133,7 +133,7 @@ route.get('/',
  * @apiExample Example usage (application/x-www-form-urlencoded):
  * curl -d "email=user@mail.nom&fullName=User" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost/api/users
  * @apiExample Example usage (application/json):
- * curl -d "{\"email\": \"matheus.bruno.damiate@gmail.com\",\"fullName\": \"Matheus Bruno Damiate\"}" -H "Content-Type: application/json" -X POST http://localhost/api/users
+ * curl -d "{\"email\":\"user@mail.nom\",\"fullName\":\"User\"}" -H "Content-Type: application/json" -X POST http://localhost/api/users
  * 
  * @apiUse UserCreated
  * @apiUse UserConflict
@@ -201,7 +201,7 @@ route.put('/:id',
  * @apiExample Example usage (application/x-www-form-urlencoded):
  * curl -d "fullName=User" -H "Content-Type: application/x-www-form-urlencoded" -X DELETE http://localhost/api/users/00000000-0000-0000-0000-000000000000
  * @apiExample Example usage (application/json):
- * curl -d "{\"fullName\"=\"User\"}" -H "Content-Type: application/json" -X DELETE http://localhost/api/users/00000000-0000-0000-0000-000000000000
+ * curl -H "Content-Type: application/json" -X DELETE http://localhost/api/users/00000000-0000-0000-0000-000000000000
  * 
  * @apiUse UserDeleted
  * @apiUse UserNotFound
