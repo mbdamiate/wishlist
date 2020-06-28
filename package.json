@@ -24,11 +24,16 @@
     "pg": "^8.2.1"
   },
   "devDependencies": {
+    "apidoc": "^0.23.0",
     "chai": "^4.2.0",
     "faker": "^4.1.0",
+    "jsdoc": "^3.6.4",
+    "minami": "^1.2.3",
     "mocha": "^8.0.1",
     "sinon": "^9.0.2",
     "supertest": "^4.0.2"
   },
-  "scripts": {}
+  "scripts": {
+    "generate:jsdoc": "jsdoc --configure ./jsdoc.json --verbose"
+  }
 }

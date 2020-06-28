@@ -5,9 +5,7 @@
 
 ## Features
  - PostgreSQL
-
  - Vanilla JS
-
  - express
  - express-validator
  - morgan
@@ -22,13 +20,8 @@
  - mocha
  - sinon
  - supertest
-
- - pm2
-
  - apidoc
  - jsdoc
-
-
 
 # BUILD PROD
     - docker-compose build
