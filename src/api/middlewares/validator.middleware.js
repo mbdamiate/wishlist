@@ -1,14 +1,22 @@
+/**
+ * @module middlewares/validator
+ */
+
 const { validationResult } = require('express-validator')
 
+/**
+ * Retrieves validation errors
+ * @param {Request} req 
+ * @param {Reques} res 
+ * @param {NextFunction} next 
+ */
 const validator = (req, res, next) => {
   const result = validationResult(req)
-
   if (result.isEmpty()) {
-    next()
+    return next()
   }
-
   else {
-    res
+    return res
       .status(422)
       .json({ errors: validationResult(req).array() })
   }

@@ -9,7 +9,7 @@ const controller = require('../controller/user.controller')
 route.get('/',
   validation.queryValidEmail,
   validator,
-  controller.searchAll
+  controller.find
 )
 
 route.post('/',
@@ -22,13 +22,7 @@ route.post('/',
 route.get('/:id',
   validation.paramValidId,
   validator,
-  controller.searchById
-)
-
-route.get('/:email',
-  validation.paramValidEmail,
-  validator,
-  controller.searchByEmail
+  controller.findById
 )
 
 route.put('/:id',

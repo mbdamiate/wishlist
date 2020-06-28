@@ -1,17 +1,26 @@
+/**
+ * @module controllers/user
+ */
 
-const modal = require('../modals/user.modal')
+const repository = require('../repositories/user.repository')
 
-const searchAll = (req, res) => {
-  const { limit, offset } = req.query
-  return modal.select(limit, offset)
-    .then(({ rowCount, result }) => {
-      if (rowCount > 0) {
+/**
+ * Find users
+ * @param {Request} req Client request
+ * @param {Response} res Server response
+ * @return {Response} Returns the response with status 200 if the query is successful, 404 if nothing is found and 500 for other reasons
+ */
+const find = (req, res) => {
+  const { page } = req.query
+  return repository.find(page)
+    .then(({ result }) => {
+      if (result.length > 0) {
         return res
           .status(200)
           .send(result)
       }
       else {
-        res
+        return res
           .status(404)
           .send()
       }
@@ -23,9 +32,15 @@ const searchAll = (req, res) => {
     })
 }
 
-const searchById = (req, res) => {
+/**
+ * Find user by id
+ * @param {Request} req Client request
+ * @param {Response} res Server response
+ * @return {Response} Returns the response with status 200 if the query is successful, 404 if not found and 500 for other reasons
+ */
+const findById = (req, res) => {
   const { id } = req.params
-  return modal.selectById(id)
+  return repository.findById(id)
     .then(({ result }) => {
       if (result) {
         return res
@@ -45,9 +60,15 @@ const searchById = (req, res) => {
     })
 }
 
-const searchByEmail = (req, res) => {
+/**
+ * Find user by email
+ * @param {Request} req Client request
+ * @param {Response} res Server response
+ * @return {Response} Returns the response with status 200 if the query is successful, 404 if not found and 500 for other reasons
+ */
+const findByEmail = (req, res) => {
   const { email } = req.params
-  return modal.selectByEmail(email)
+  return repository.findByEmail(email)
     .then(({ result }) => {
       if (result) {
         return res
@@ -67,9 +88,15 @@ const searchByEmail = (req, res) => {
     })
 }
 
+/**
+ * Create user
+ * @param {Request} req Client request
+ * @param {Response} res Server response
+ * @return {Response} Returns the answer with status 201 if the creation is successful, 409 if it already exists and 500 for other reasons
+ */
 const create = (req, res) => {
   const { email, fullName } = req.body
-  return modal.insert(email, fullName)
+  return repository.create(email, fullName)
     .then(({ resultId }) => {
       if (resultId === '00000000-0000-0000-0000-000000000000') {
         return res
@@ -89,10 +116,16 @@ const create = (req, res) => {
     })
 }
 
+/**
+ * Update user
+ * @param {Request} req Client request
+ * @param {Response} res Server response
+ * @return {Response} Returns response with status 201 if update is successful, 304 if not found and 500 for other reasons
+ */
 const update = (req, res) => {
   const { id } = req.params
   const { fullName } = req.body
-  return modal.update(id, fullName)
+  return repository.update(id, fullName)
     .then(({ resultId }) => {
       if (resultId === id) {
         return res
@@ -112,9 +145,15 @@ const update = (req, res) => {
     })
 }
 
+/**
+ * Remove user
+ * @param {Request} req Client request
+ * @param {Response} res Server response
+ * @return {Response} Returns response with status 200 if removal is successful, 404 if not found and 500 for other reasons
+ */
 const remove = (req, res) => {
   const { id } = req.params
-  return modal.remove(id)
+  return repository.remove(id)
     .then(({ resultId }) => {
       if (resultId === '00000000-0000-0000-0000-000000000000') {
         return res
@@ -135,10 +174,10 @@ const remove = (req, res) => {
 }
 
 module.exports = {
-  searchAll,
-  searchById,
-  searchByEmail,
   create,
   update,
-  remove
+  remove,
+  find,
+  findById,
+  findByEmail
 }
