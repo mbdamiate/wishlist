@@ -17,7 +17,7 @@ const find = (req, res) => {
       if (result.length > 0) {
         return res
           .status(200)
-          .send(result)
+          .send({ users: result })
       }
       else {
         return res
@@ -106,7 +106,7 @@ const create = (req, res) => {
       else {
         return res
           .status(201)
-          .send()
+          .send({ id: resultId })
       }
     })
     .catch((error) => {
@@ -163,7 +163,7 @@ const remove = (req, res) => {
       else {
         return res
           .status(200)
-          .send()
+          .send({ id: resultId })
       }
     })
     .catch((error) => {
