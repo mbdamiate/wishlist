@@ -1,5 +1,6 @@
 
 const process = require('process')
+Promise = require('bluebird')
 
 const app = require('./config/app')
 
