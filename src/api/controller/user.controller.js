@@ -17,18 +17,18 @@ const find = (req, res) => {
       if (result.length > 0) {
         return res
           .status(200)
-          .send({ users: result })
+          .json({ users: result })
       }
       else {
         return res
           .status(404)
-          .send()
+          .json()
       }
     })
     .catch((error) => {
       return res
         .status(500)
-        .send(error)
+        .json(error)
     })
 }
 
@@ -45,18 +45,18 @@ const findById = (req, res) => {
       if (result) {
         return res
           .status(200)
-          .send(result)
+          .json(result)
       }
       else {
         return res
           .status(404)
-          .send()
+          .json()
       }
     })
     .catch((error) => {
       return res
         .status(500)
-        .send(error)
+        .json(error)
     })
 }
 
@@ -73,18 +73,18 @@ const findByEmail = (req, res) => {
       if (result) {
         return res
           .status(200)
-          .send(result)
+          .json(result)
       }
       else {
         return res
           .status(404)
-          .send()
+          .json()
       }
     })
     .catch((error) => {
       return res
         .status(500)
-        .send(error)
+        .json(error)
     })
 }
 
@@ -101,18 +101,18 @@ const create = (req, res) => {
       if (resultId === '00000000-0000-0000-0000-000000000000') {
         return res
           .status(409)
-          .send()
+          .json()
       }
       else {
         return res
           .status(201)
-          .send({ id: resultId })
+          .json({ id: resultId })
       }
     })
     .catch((error) => {
       return res
         .status(500)
-        .send(error)
+        .json(error)
     })
 }
 
@@ -130,18 +130,18 @@ const update = (req, res) => {
       if (resultId === id) {
         return res
           .status(304)
-          .send()
+          .json()
       }
       else {
         return res
           .status(201)
-          .send({ id: resultId })
+          .json({ id: resultId })
       }
     })
     .catch((error) => {
       return res
         .status(500)
-        .send(error)
+        .json(error)
     })
 }
 
@@ -158,18 +158,18 @@ const remove = (req, res) => {
       if (resultId === '00000000-0000-0000-0000-000000000000') {
         return res
           .status(404)
-          .send()
+          .json()
       }
       else {
         return res
           .status(200)
-          .send({ id: resultId })
+          .json({ id: resultId })
       }
     })
     .catch((error) => {
       return res
         .status(500)
-        .send(error)
+        .json(error)
     })
 }
 

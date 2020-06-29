@@ -7,3 +7,5 @@ README.md
 .gitignore
 jsdocs
 apidocs
+mochawesome-report
+.nyc_output
