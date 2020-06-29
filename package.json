@@ -13,6 +13,7 @@
   },
   "main": "src/index.js",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -30,10 +31,17 @@
     "jsdoc": "^3.6.4",
     "minami": "^1.2.3",
     "mocha": "^8.0.1",
+    "mochawesome": "^6.1.1",
+    "nyc": "^15.1.0",
     "sinon": "^9.0.2",
     "supertest": "^4.0.2"
   },
   "scripts": {
+    "docker:dev:up": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build",
+    "docker:dev:down": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --rmi local --volumes --remove-orphans",
+    "test:unit": "nyc mocha ./src/api/**/*.test.js --reporter mochawesome",
+    "test:unit:watch": "mocha ./src/api/**/*.test.js --watch",
+    "test:integration": "mocha ./tests/**/*.test.js",
     "gen:jsdoc": "jsdoc --configure ./jsdoc.json --verbose",
     "gen:apidoc": "apidoc -i src -o ./apidocs"
   }

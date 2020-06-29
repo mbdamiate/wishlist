@@ -2,6 +2,10 @@
 version: "3"
 
 services:
+  whishlist_test:
+    build: 
+      context: .
+      dockerfile: Dockerfile.test
   whishlist_app:
     build:
       context: .

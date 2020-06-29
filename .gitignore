@@ -106,3 +106,6 @@ dist
 # Documentations output
 jsdocs
 apidocs
+
+# Mochawesome test reporter 
+mochawesome-report
