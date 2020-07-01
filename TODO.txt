@@ -1,0 +1,21 @@
+// API
+
+    // Public
+    GET     /api/health
+    POST    /api/register
+    POST    /api/signin
+    POST    /api/signout
+
+    // Authentication & Authorization
+    GET     /api/users                                  // Just master
+    GET     /api/users/:userId                          // Just master
+    PATH    /api/users/:userId                          // Just master and itself
+    DELETE  /api/users/:userId                          // Just master and itself
+
+    GET     /api/users/:userId/whishlist                // Just master and itself
+    POST    /api/users/:userId/whishlist/:productId     // Checks if the product exists and the list already has
+
+// Structure
+
+    // Injection
+    // Queries
