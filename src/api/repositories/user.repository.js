@@ -9,7 +9,7 @@ module.exports = ({ query }) => {
    * @param {number} page Requested page
    * @returns {Promise.<Array.<{id: string, email: string, fullName: string}>>|Error} Promised users list
    */
-  const find = (page = 0) => {
+  const find = (page = 1) => {
     let limit = 100
     let offset = 0
 
