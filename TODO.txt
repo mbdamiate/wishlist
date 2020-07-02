@@ -3,8 +3,7 @@
     // Public
     GET     /api/health
     POST    /api/register
-    POST    /api/signin
-    POST    /api/signout
+    POST    /api/auth/signin
 
     // Authentication & Authorization
     GET     /api/users                                  // Just master
