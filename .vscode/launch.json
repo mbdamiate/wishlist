@@ -8,9 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program Hot Reload",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\nodemon",
       "program": "${workspaceFolder}\\src\\index.js",
       "restart": true
@@ -19,9 +17,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\src\\index.js"
     }
   ]

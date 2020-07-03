@@ -1,10 +1,5 @@
-module.exports = ({
-  pg,
-  connectionString
-}) => {
+module.exports = ({ pg, connectionString }) => {
+  const pool = new pg.Pool({ connectionString });
 
-  const pool = new pg.Pool({ connectionString })
-
-  return pool
-
-}
+  return pool;
+};
