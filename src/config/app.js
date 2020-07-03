@@ -10,6 +10,7 @@ module.exports = ({
   app.use(middlewares.compression())
   app.use(middlewares.bodyParser.json())
   app.use(middlewares.bodyParser.urlencoded({ extended: false }))
+  app.use(middlewares.helmet())
 
   app.use('/api/auth',
     resources.auth)

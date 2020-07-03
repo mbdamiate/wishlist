@@ -12,14 +12,7 @@ module.exports = ({
       RETURNING
           id, email, full_name`
     return pool.query(command, [email, fullName])
-      .then(({ rows }) => {
-        if (rows.length > 0) {
-          return { rows }
-        }
-        else {
-          throw new errors.NotFoundError('Users not found')
-        }
-      })
+      .then(({ rows }) => ({ rows }))
       .catch((error) => {
         if (error.code === '23505') {
           throw new errors.ConflictError('User already exists')
@@ -44,14 +37,7 @@ module.exports = ({
       RETURNING
           id, email, full_name`
     return pool.query(command, [id, fullName])
-      .then(({ rows }) => {
-        if (rows.length > 0) {
-          return { rows }
-        }
-        else {
-          throw new errors.NotFoundError('Users not found')
-        }
-      })
+      .then(({ rows }) => ({ rows }))
       .catch((error) => {
         throw new errors.SQLError(error)
       })
@@ -66,14 +52,7 @@ module.exports = ({
       RETURNING
           id`
     return pool.query(command, [id])
-      .then(({ rows }) => {
-        if (rows.length > 0) {
-          return { rows }
-        }
-        else {
-          throw new errors.NotFoundError('Users not found')
-        }
-      })
+      .then(({ rows }) => ({ rows }))
       .catch((error) => {
         throw new errors.SQLError(error)
       })
@@ -94,14 +73,7 @@ module.exports = ({
       OFFSET $1
       FETCH FIRST 100 ROWS ONLY`
     return pool.query(command, [page > 1 ? ((page * 100) + 1) : 0])
-      .then(({ rows }) => {
-        if (rows.length > 0) {
-          return { rows }
-        }
-        else {
-          throw new errors.NotFoundError('Users not found')
-        }
-      })
+      .then(({ rows }) => ({ rows }))
       .catch((error) => {
         throw new errors.SQLError(error)
       })
@@ -118,14 +90,7 @@ module.exports = ({
       WHERE
           app_user.email = $1`
     return pool.query(command, [email])
-      .then(({ rows }) => {
-        if (rows.length > 0) {
-          return { rows }
-        }
-        else {
-          throw new errors.NotFoundError('Users not found')
-        }
-      })
+      .then(({ rows }) => ({ rows }))
       .catch((error) => {
         throw new errors.SQLError(error)
       })
