@@ -1,11 +1,5 @@
-module.exports = ({
-  route,
-  controller
-}) => {
+module.exports = ({ route, controller }) => {
+  route.get("/health", controller.health);
 
-  route.get('/health',
-    controller.health)
-
-  return route
-
-}
+  return route;
+};

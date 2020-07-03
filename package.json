@@ -1,7 +1,7 @@
 {
-  "name": "whishlist",
+  "name": "wishlist",
   "version": "1.0.0",
-  "description": "Sample Whishlist",
+  "description": "Sample wishlist",
   "license": "MIT",
   "author": {
     "name": "Matheus Bruno Damiate",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mbdamiate/whishlist.git"
+    "url": "https://github.com/mbdamiate/wishlist.git"
   },
   "main": "src/index.js",
   "dependencies": {
@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "pg": "^8.2.1",
+    "prettier": "^2.0.5",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -39,6 +40,6 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "test": "mocha tests/**/*.test.js",
-    "test:watch": "mocha tests/**/*.test.js --watch"
+    "format": "prettier --write \"**/*.+(js|json)\""
   }
 }

@@ -1,4 +1,4 @@
-# Whishlist
+# wishlist
 
 ## Requirements
  - Docker

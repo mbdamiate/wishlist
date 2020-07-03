@@ -1,20 +1,14 @@
-module.exports = ({
-  route,
-  controller,
-  middlewares
-}) => {
+module.exports = ({ route, controller, middlewares }) => {
+  route.get("/", controller.findAll);
 
-  route.get('/',
-    controller.findAll)
-
-  route.patch('/',
+  route.patch(
+    "/",
     middlewares.validator.fullName,
     middlewares.validator.end,
-    controller.update)
+    controller.update
+  );
 
-  route.delete('/',
-    controller.remove)
+  route.delete("/", controller.remove);
 
-  return route
-
-}
+  return route;
+};
