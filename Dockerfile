@@ -4,7 +4,7 @@ RUN apk add --no-cache bash
 
 RUN npm install pm2 -g
 
-WORKDIR /home/whishlist
+WORKDIR /home/app
 
 COPY package*.json ./
 
@@ -18,4 +18,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "pm2", "src/index.js" ]
+CMD [ "pm2-runtime", "src/index.js" ]
