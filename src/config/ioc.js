@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 const cors = require('cors')
 const compression = require('compression')
 const bodyParser = require('body-parser')
+const helmet = require('helmet')
 const pg = require('pg')
 const jsonwebtoken = require('jsonwebtoken')
 const expressValidator = require('express-validator')
@@ -55,8 +56,7 @@ const whishlistController = require('../api/controller/whishlist.controller')
 const indexRoute = require('../api/route/index.route')
   ({
     route: express.Router({ strict: true }),
-    controller: indexController,
-    middlewares: { validator }
+    controller: indexController
   })
 const authRoute = require('../api/route/auth.route')
   ({
@@ -84,6 +84,7 @@ const config = {
     cors,
     compression,
     bodyParser,
+    helmet,
     jwtValidation,
     logger,
     errorHandler

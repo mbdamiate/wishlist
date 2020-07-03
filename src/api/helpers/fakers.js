@@ -2,7 +2,7 @@ module.exports = ({
   faker
 }) => {
 
-  const fakeFullName = () => {
+  const fullName = () => {
     const firstName = faker.name.firstName()
     const fullName = faker.name.lastName()
     return String()
@@ -11,7 +11,7 @@ module.exports = ({
       .concat(fullName)
   }
 
-  const fakeEmail = (firstName = null, lastName = null) => {
+  const email = (firstName = null, lastName = null) => {
     if (!firstName || !lastName) {
       return faker.internet.email()
     }
@@ -26,23 +26,14 @@ module.exports = ({
     }
   }
 
-  const fakeUUID = () => {
+  const UUID = () => {
     return faker.random.uuid()
   }
 
-  const fakerUser = () => {
-    const id = fakeUUID()
-    const fullName = fakeFullName()
-    const [firstName, lastName] = fullName.split(' ')
-    const email = fakeEmail(firstName, lastName)
-    return { id, fullName, email }
-  }
-
   return {
-    fakeEmail,
-    fakeFullName,
-    fakeUUID,
-    fakerUser
+    email,
+    fullName,
+    UUID
   }
 
 }
