@@ -1,25 +1,33 @@
+module.exports = ({
+  app,
+  middlewares,
+  resources
+}) => {
 
-const express = require('express')
+  app.use(middlewares.logger)
+  app.use(middlewares.methodOverride())
+  app.use(middlewares.cors())
+  app.use(middlewares.compression())
+  app.use(middlewares.bodyParser.json())
+  app.use(middlewares.bodyParser.urlencoded({ extended: false }))
+  app.use(middlewares.helmet())
 
-const cors = require('cors')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const methodOverride = require('method-override')
-const helmet = require('helmet')
-const compression = require('compression')
+  app.use('/api/auth',
+    resources.auth)
 
-const app = express()
+  app.use('/api/users',
+    middlewares.jwtValidation,
+    resources.user)
 
-const user = require('../api/routes/user.route')
+  app.use('/api/whishlist',
+    middlewares.jwtValidation,
+    resources.whishlist)
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(morgan('combined'))
-app.use(cors())
-app.use(methodOverride())
-app.use(helmet())
-app.use(compression())
+  app.use('/api',
+    resources.index)
 
-app.use('/api/users', user)
+  app.use(middlewares.errorHandler)
 
-module.exports = app
+  return app
+
+}
