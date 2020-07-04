@@ -1,29 +1,29 @@
 module.exports = ({ expressValidator }) => {
   const email = expressValidator
-    .check("email")
+    .check('email')
     .exists()
     .isEmail()
-    .withMessage("must be a valid email");
+    .withMessage('must be a valid email');
 
   const uuid = expressValidator
-    .check("*.id")
+    .check('*.id')
     .exists()
     .isUUID()
-    .withMessage("must be a valid UUID");
+    .withMessage('must be a valid UUID');
 
   const fullName = expressValidator
-    .check("fullName")
+    .check('fullName')
     .exists()
-    .withMessage("must be a valid full name");
+    .withMessage('must be a valid full name');
 
   const end = (req, res, next) => {
     const result = expressValidator.validationResult(req);
     if (result.isEmpty()) {
       return next();
     } else {
-      return res
-        .status(422)
-        .json({ errors: expressValidator.validationResult(req).array() });
+      return res.status(422).json({
+        errors: expressValidator.validationResult(req).array(),
+      });
     }
   };
 

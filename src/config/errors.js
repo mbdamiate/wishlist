@@ -1,7 +1,7 @@
 class ConflictError extends Error {
   constructor(message) {
     super(message);
-    this.name = "Conflict";
+    this.name = 'Conflict';
     this.code = 409;
   }
 }
@@ -9,7 +9,7 @@ class ConflictError extends Error {
 class NotFoundError extends Error {
   constructor(message) {
     super(message);
-    this.name = "Not Found";
+    this.name = 'Not Found';
     this.code = 404;
   }
 }
@@ -17,7 +17,7 @@ class NotFoundError extends Error {
 class SQLError extends Error {
   constructor(message) {
     super(message);
-    this.name = "SQL Error";
+    this.name = 'SQL Error';
     this.code = 500;
   }
 }
@@ -25,7 +25,7 @@ class SQLError extends Error {
 class RequestError extends Error {
   constructor(message) {
     super(message);
-    this.name = "Request Error";
+    this.name = 'Request Error';
     this.code = 500;
   }
 }

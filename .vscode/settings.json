@@ -1,5 +1,6 @@
 {
-    "files.autoGuessEncoding": true,
-    "terminal.explorerKind": "external",
-    "remote.downloadExtensionsLocally": true
+  "files.autoGuessEncoding": true,
+  "terminal.explorerKind": "external",
+  "remote.downloadExtensionsLocally": true,
+  "zenMode.hideLineNumbers": false
 }

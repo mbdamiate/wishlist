@@ -1,5 +1,5 @@
 module.exports = ({ request, errors }) => {
-  const urlBase = "http://challenge-api.luizalabs.com/api/product";
+  const urlBase = 'http://challenge-api.luizalabs.com/api/product';
 
   const findById = ({ id }) => {
     return request

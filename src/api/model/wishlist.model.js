@@ -12,7 +12,7 @@ module.exports = ({ pool, errors }) => {
         if (rows.length > 0) {
           return { rows };
         } else {
-          throw new errors.NotFoundError("Users not found");
+          throw new errors.NotFoundError('Users not found');
         }
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ module.exports = ({ pool, errors }) => {
         if (rows.length > 0) {
           return { rows };
         } else {
-          throw new errors.NotFoundError("Users not found");
+          throw new errors.NotFoundError('Users not found');
         }
       })
       .catch((error) => {
@@ -63,7 +63,7 @@ module.exports = ({ pool, errors }) => {
         if (rows.length > 0) {
           return { rows };
         } else {
-          throw new errors.NotFoundError("Products not found");
+          throw new errors.NotFoundError('Products not found');
         }
       })
       .catch((error) => {

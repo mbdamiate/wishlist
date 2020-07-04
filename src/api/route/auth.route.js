@@ -1,17 +1,17 @@
 module.exports = ({ route, controller, middlewares }) => {
   route.post(
-    "/register",
+    '/register',
     middlewares.validator.email,
     middlewares.validator.fullName,
     middlewares.validator.end,
-    controller.register
+    controller.register,
   );
 
   route.post(
-    "/signin",
+    '/signin',
     middlewares.validator.email,
     middlewares.validator.end,
-    controller.signIn
+    controller.signIn,
   );
 
   return route;

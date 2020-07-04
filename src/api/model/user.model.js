@@ -11,8 +11,8 @@ module.exports = ({ pool, errors }) => {
       .query(command, [email, fullName])
       .then(({ rows }) => ({ rows }))
       .catch((error) => {
-        if (error.code === "23505") {
-          throw new errors.ConflictError("User already exists");
+        if (error.code === '23505') {
+          throw new errors.ConflictError('User already exists');
         } else {
           throw new errors.SQLError(error);
         }

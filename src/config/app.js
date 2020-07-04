@@ -7,13 +7,13 @@ module.exports = ({ app, middlewares, resources }) => {
   app.use(middlewares.bodyParser.urlencoded({ extended: false }));
   app.use(middlewares.helmet());
 
-  app.use("/api/auth", resources.auth);
+  app.use('/api/auth', resources.auth);
 
-  app.use("/api/users", middlewares.jwtValidation, resources.user);
+  app.use('/api/users', middlewares.jwtValidation, resources.user);
 
-  app.use("/api/wishlist", middlewares.jwtValidation, resources.wishlist);
+  app.use('/api/wishlist', middlewares.jwtValidation, resources.wishlist);
 
-  app.use("/api", resources.index);
+  app.use('/api', resources.index);
 
   app.use(middlewares.errorHandler);
 
