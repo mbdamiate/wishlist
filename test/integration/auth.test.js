@@ -8,16 +8,27 @@ const fakers = require('../../src/api/helpers/fakers')({
 });
 
 describe('Auth API', () => {
-  let fullName;
-  let email;
-
-  before(() => {
-    fullName = fakers.fullName();
-    let [firstName, lastName] = fullName.split(' ');
-    email = fakers.email(firstName, lastName);
-  });
+  const fullName = fakers.fullName();
+  const [firstName, lastName] = fullName.split(' ');
+  const email = fakers.email(firstName, lastName);
+  let token;
 
   describe('POST /api/auth/register', () => {
+    after((done) => {
+      request
+        .delete('/api/users')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            console.log(res);
+            expect(res.status).to.equals(200);
+            done();
+          }
+        });
+    });
+
     it('expect to be success', (done) => {
       request
         .post('/api/auth/register')

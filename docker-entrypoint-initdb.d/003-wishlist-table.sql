@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS app_wishlist (
     created_at  TIMESTAMP   NULL        DEFAULT now(),
     
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES app_user (id)
+    FOREIGN KEY (user_id) REFERENCES app_user (id) ON DELETE CASCADE
 );

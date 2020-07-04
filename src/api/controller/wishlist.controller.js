@@ -8,21 +8,20 @@ module.exports = ({ models }) => {
     return product
       .findById({ id })
       .then(({ id }) => {
-        return wishlist.findProductByUser({
+        return wishlist.findProductByIdAndUserId({
           userId,
           productId: id,
         });
       })
       .then(({ rows }) => {
         if (rows.length > 0) {
-          throw new Error('Product already exists in the wishlist');
+          return res.status(409).json({ message: 'Product already exists' });
         } else {
-          return wishlist.create({ userId, productId: id });
+          return wishlist.create({ userId, productId: id }).then(({ rows }) => {
+            const [first] = rows;
+            return res.status(201).json({ id: first.id });
+          });
         }
-      })
-      .then(({ rows }) => {
-        const [first] = rows;
-        return res.status(201).json({ id: first.id });
       })
       .catch(next);
   };

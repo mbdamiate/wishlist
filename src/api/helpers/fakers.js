@@ -19,13 +19,13 @@ module.exports = ({ faker }) => {
     }
   };
 
-  const UUID = () => {
+  const uuid = () => {
     return faker.random.uuid();
   };
 
   return {
     email,
     fullName,
-    UUID,
+    uuid,
   };
 };

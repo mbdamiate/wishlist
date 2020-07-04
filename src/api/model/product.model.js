@@ -8,7 +8,12 @@ module.exports = ({ request, errors }) => {
         return data;
       })
       .catch((error) => {
-        throw new errors.RequestError(error.message);
+        const { response } = error;
+        if (response.status === 404) {
+          throw new errors.NotFoundError('Product not found');
+        } else {
+          throw new errors.RequestError(error.message);
+        }
       });
   };
 

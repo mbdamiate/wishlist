@@ -6,7 +6,12 @@ module.exports = ({ route, controller, middlewares }) => {
     controller.create,
   );
 
-  route.delete('/', controller.remove);
+  route.delete(
+    '/',
+    middlewares.validator.uuid,
+    middlewares.validator.end,
+    controller.remove,
+  );
 
   route.get('/', controller.findAll);
 
