@@ -182,17 +182,17 @@ describe('Wishlist API', () => {
     });
   });
 
-  // after((done) => {
-  //   request
-  //     .delete('/api/users')
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .end((err, res) => {
-  //       if (err) {
-  //         done(err);
-  //       } else {
-  //         expect(res.status).to.equals(200);
-  //         done();
-  //       }
-  //     });
-  // });
+  after((done) => {
+    request
+      .delete('/api/users')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          expect(res.status).to.equals(200);
+          done();
+        }
+      });
+  });
 });
