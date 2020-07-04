@@ -1,9 +1,9 @@
 const supertest = require("supertest");
-const app = require("../src/config/ioc");
+const app = require("../../src/config/ioc");
 const request = supertest(app);
 const { expect } = require("chai");
 const faker = require("faker");
-const fakers = require("../src/api/helpers/fakers")({ faker });
+const fakers = require("../../src/api/helpers/fakers")({ faker });
 
 describe("Auth API", () => {
   let fullName;
