@@ -24,7 +24,6 @@ describe('Wishlist API', () => {
         } else {
           expect(res.status).to.equals(201);
           expect(res.body).to.have.property('id');
-          userId = res.body.id;
           done();
         }
       });
@@ -122,8 +121,52 @@ describe('Wishlist API', () => {
           }
         });
     });
+  });
 
-    after((done) => {
+  describe('GET /api/wishlist', () => {
+
+    it('expect success', (done) => {
+      request
+        .get('/api/wishlist')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          }
+          else {
+            expect(res.body).to.have.property('meta');
+            expect(res.body).to.have.property('products');
+            expect(res.body.products).to.be.an('array');
+            const [firstProduct] = res.body.products;
+            expect(firstProduct).to.have.property('id');
+            expect(firstProduct).to.have.property('price');
+            expect(firstProduct).to.have.property('image');
+            expect(firstProduct).to.have.property('title');
+            expect(firstProduct).to.have.property('brand');
+            done();
+          }
+        })
+    });
+
+  })
+
+  describe('DELETE /api/wishlist', () => {
+    it('expect failure to not send product id', (done) => {
+      request
+        .delete('/api/wishlist')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ product: { id: null } })
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.status).to.equals(422);
+            done();
+          }
+        });
+    });
+
+    it('expect success to send a valid and existent product id', (done) => {
       request
         .delete('/api/wishlist')
         .set('Authorization', `Bearer ${token}`)
@@ -132,48 +175,24 @@ describe('Wishlist API', () => {
           if (err) {
             done(err);
           } else {
-            console.log(res.body);
-            // expect(res.status).to.equals(200);
+            expect(res.status).to.equals(200);
             done();
           }
         });
     });
   });
 
-  after((done) => {
-    request
-      .delete('/api/users')
-      .set('Authorization', `Bearer ${token}`)
-      .end((err, res) => {
-        if (err) {
-          done(err);
-        } else {
-          console.log(res);
-          expect(res.status).to.equals(200);
-          done();
-        }
-      });
-  });
-
-  // describe('DELETE /api/wishlist', () => {
-  //   // Deve adicionar o produto
-  //   // before((done) => {
-  //   //   done();
-  //   // });
-
-  //   it('expect failure to send ', (done) => {
-  //     request
-  //       .delete('/api/wishlist')
-  //       .set('Authorization', `Bearer ${token}`)
-  //       .send({ product: { id: '' } })
-  //       .end((err, res) => {
-  //         if (err) {
-  //           done(err);
-  //         } else {
-  //           expect(res.status).to.equals(200);
-  //           done();
-  //         }
-  //       });
-  //   })
+  // after((done) => {
+  //   request
+  //     .delete('/api/users')
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .end((err, res) => {
+  //       if (err) {
+  //         done(err);
+  //       } else {
+  //         expect(res.status).to.equals(200);
+  //         done();
+  //       }
+  //     });
   // });
 });

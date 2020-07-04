@@ -28,9 +28,9 @@ module.exports = ({ models }) => {
 
   const remove = (req, res, next) => {
     const userId = res.locals.user;
-    const { productId } = req.body;
+    const { product } = req.body;
     return wishlist
-      .remove({ userId, productId })
+      .remove({ userId, productId: product.id })
       .then(({ rows }) => {
         if (rows.length > 0) {
           const [first] = rows;
