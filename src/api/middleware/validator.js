@@ -14,6 +14,7 @@ module.exports = ({ expressValidator }) => {
   const fullName = expressValidator
     .check('fullName')
     .exists()
+    .isString()
     .withMessage('must be a valid full name');
 
   const end = (req, res, next) => {

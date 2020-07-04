@@ -46,37 +46,7 @@ describe('Wishlist API', () => {
       });
   });
 
-  after((done) => {
-    request
-      .delete('/api/users')
-      .set('Authorization', `Bearer ${token}`)
-      .end((err, res) => {
-        if (err) {
-          done(err);
-        } else {
-          expect(res.status).to.equals(200);
-          done();
-        }
-      });
-  })
-
   describe('POST /api/wishlist', () => {
-    // after((done) => {
-    //   request
-    //     .delete('/api/wishlist')
-    //     .set('Authorization', `Bearer ${token}`)
-    //     .send({ product: { id: productId } })
-    //     .end((err, res) => {
-    //       if (err) {
-    //         done(err);
-    //       } else {
-    //         console.log(res.body);
-    //         // expect(res.status).to.equals(200);
-    //         done();
-    //       }
-    //     });
-    // });
-
     it('expect failure to not send product id', (done) => {
       request
         .post('/api/wishlist')
@@ -152,6 +122,37 @@ describe('Wishlist API', () => {
           }
         });
     });
+
+    after((done) => {
+      request
+        .delete('/api/wishlist')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ product: { id: productId } })
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            console.log(res.body);
+            // expect(res.status).to.equals(200);
+            done();
+          }
+        });
+    });
+  });
+
+  after((done) => {
+    request
+      .delete('/api/users')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          console.log(res);
+          expect(res.status).to.equals(200);
+          done();
+        }
+      });
   });
 
   // describe('DELETE /api/wishlist', () => {
@@ -175,5 +176,4 @@ describe('Wishlist API', () => {
   //       });
   //   })
   // });
-
 });
