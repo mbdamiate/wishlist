@@ -2,8 +2,6 @@ FROM node:12.18-alpine
 
 RUN apk add --no-cache bash
 
-RUN npm install pm2 -g
-
 WORKDIR /home/app
 
 COPY package*.json ./
@@ -18,4 +16,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "pm2-runtime", "src/index.js" ]
+CMD [ "node", "src/index.js" ]

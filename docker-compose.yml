@@ -10,13 +10,15 @@ services:
     container_name: application
     restart: unless-stopped
     env_file: .env
+    environment:
+      DATABASE_URL: postgres://wishuser:wishpass@database:5432/wishdb
     ports:
       - 5050:$PORT
     volumes:
       - ./src:/home/app/src
     networks:
       - network
-    command: ./wait-for-it.sh database:5432 -- pm2-runtime src/index.js
+    command: ./wait-for-it.sh database:5432 -- node src/index.js
     depends_on:
       - database
 
