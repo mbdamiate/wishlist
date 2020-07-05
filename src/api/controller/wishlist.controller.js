@@ -4,9 +4,9 @@ module.exports = ({ models }) => {
 
   const create = (req, res, next) => {
     const userId = res.locals.user;
-    const { product } = req.body;
+    const { id } = req.body.product;
     return product
-      .findById({ id: product.id })
+      .findById({ id })
       .then(({ id }) => {
         return wishlist.findProductByIdAndUserId({
           userId,
@@ -17,11 +17,10 @@ module.exports = ({ models }) => {
         if (rows.length > 0) {
           return res.status(409).json({ message: 'Product already exists' });
         } else {
-          return wishlist.create({ userId, productId: id })
-            .then(({ rows }) => {
-              const [first] = rows;
-              return res.status(201).json({ id: first.id });
-            });
+          return wishlist.create({ userId, productId: id }).then(({ rows }) => {
+            const [first] = rows;
+            return res.status(201).json({ id: first.id });
+          });
         }
       })
       .catch(next);

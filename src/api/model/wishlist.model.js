@@ -87,7 +87,6 @@ module.exports = ({ pool, errors }) => {
       .query(command, [userId, productId])
       .then(({ rows }) => ({ rows }))
       .catch((error) => {
-        console.error(error);
         throw new errors.SQLError(error);
       });
   };
