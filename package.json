@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Sample wishlist",
   "license": "MIT",
+  "engines": {
+    "node": "12.18"
+  },
   "author": {
     "name": "Matheus Bruno Damiate",
     "email": "mbdamiate@gmail.com"
