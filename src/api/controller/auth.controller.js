@@ -2,6 +2,17 @@ module.exports = ({ models, utils }) => {
   const { user } = models;
   const { jsonwebtoken } = utils;
 
+  const register = (req, res, next) => {
+    const { email, fullName } = req.body;
+    return user
+      .create({ email, fullName })
+      .then(({ rows }) => {
+        const [first] = rows;
+        return res.status(201).json({ id: first.id });
+      })
+      .catch(next);
+  };
+
   const signIn = (req, res, next) => {
     const { email } = req.body;
     return user
@@ -22,19 +33,8 @@ module.exports = ({ models, utils }) => {
       .catch(next);
   };
 
-  const register = (req, res, next) => {
-    const { email, fullName } = req.body;
-    return user
-      .create({ email, fullName })
-      .then(({ rows }) => {
-        const [first] = rows;
-        return res.status(201).json({ id: first.id });
-      })
-      .catch(next);
-  };
-
   return {
-    signIn,
     register,
+    signIn
   };
 };

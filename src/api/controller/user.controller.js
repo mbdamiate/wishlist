@@ -1,3 +1,5 @@
+const { is } = require("bluebird");
+
 module.exports = ({ models }) => {
   const { user } = models;
 
@@ -22,8 +24,12 @@ module.exports = ({ models }) => {
     return user
       .remove({ id })
       .then(({ rows }) => {
-        const [first] = rows;
-        return res.status(200).json({ id: first.id });
+        if (rows.length > 0) {
+          const [first] = rows;
+          return res.status(200).json({ id: first.id });
+        } else {
+          return res.status(404).json({ message: 'User not found' });
+        }
       })
       .catch(next);
   };
@@ -36,7 +42,13 @@ module.exports = ({ models }) => {
         if (rows.length > 0) {
           return res.status(200).json({
             meta: { page: page || 1 },
-            users: rows,
+            users: rows.map((user) => {
+              return {
+                id: user.id,
+                email: user.email,
+                fullName: user.fullName
+              }
+            }),
           });
         } else {
           return res.status(404).json({ message: 'Users not found' });
