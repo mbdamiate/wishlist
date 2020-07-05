@@ -16,16 +16,10 @@ Promise = require('bluebird');
 
 dotenv.config();
 
-const pass = process.env.POSTGRES_PASSWORD;
-const user = process.env.POSTGRES_USER;
-const db = process.env.POSTGRES_DB;
-const connectionString =
-  process.env.DATABASE_URL || `postgres://${user}:${pass}@0.0.0.0:5432/${db}`;
-
 const app = require('../config/app');
 const database = require('../config/database')({
   pg,
-  connectionString,
+  connectionString: process.env.DATABASE_URL,
 });
 
 // middleware

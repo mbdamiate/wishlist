@@ -1,11 +1,25 @@
-# wishlist
+# Wishlist
+
+Sample wishlist without product storage.
+
+## Index
+  - [Requirements](#requirements)
+  - [How to use](#how-to-use)
+  - [Features](#features)
+  - [How to run integration tests](#how-to-run-integration-tests)
+  - [How to run unit tests](#how-to-run-unit-tests)
+
+---
 
 ## Requirements
- - Git*
- - Docker*
- - Docker Compose*
+ - Git¹
+ - Docker¹
+ - Docker Compose¹
+ - Node¹ ²
  
-*: *Depends on which of the two ways you choose*
+  ¹ : *To run locally*
+
+  ² : *To run the tests*
 
 ---
 
@@ -18,7 +32,7 @@ The first way is remote access.
 The second way, you can clone this repository and run with Docker Compose in few steps.
 
   - Step 1: Install requirements
-    - install [git](https://git-scm.com/downloads)
+    - install [Git](https://git-scm.com/downloads)
     - install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
   - Step 2: Clone and move to app folder
     ``` bash
@@ -27,7 +41,7 @@ The second way, you can clone this repository and run with Docker Compose in few
   - Step 3
     - Create .env file based on .env.example on project folder
     - Fill in all keys with the desired values (except DATABASE_URL, as it will be filled in by docker-compose). Example:
-        ``` .env
+        ``` bash
         NODE_ENV=develop
         PORT=5050
         SECRET=mysecret
@@ -58,3 +72,39 @@ The second way, you can clone this repository and run with Docker Compose in few
     - [Remove one item from your list](src/api/route/wishlist.md#delete-apiwishlist)
     - [Retrieves wishlist](src/api/route/wishlist.md#get-apiwishlist)
     - [Add a new item to your list](src/api/route/wishlist.md#post-apiwishlist)
+
+---
+
+## How to run integration tests
+Assuming that all "How to use" steps have been completed
+
+To run integration tests locally, you need:
+
+  - Setp 1: You need to set DATABASE_URL var in .env file
+    ``` bash
+    DATABASE_URL=postgres://wishuser:wishpass@0.0.0.0:5432/wishdb
+    ```
+  - Step 2: Then you must install the application dependencies
+    ``` bash
+    npm i
+    ```
+  - Step 3: Then you can run integration test with command
+    ``` bash
+    npm run test:i
+    ```
+
+---
+
+## How to run unit tests
+Assuming that all "How to use" steps have been completed
+
+To run integration tests locally, you need:
+
+  - Step 1: Then you must install the application dependencies
+    ``` bash
+    npm i
+    ```
+  - Step 2: Then you can run integration test with command
+    ``` bash
+    npm run test:u
+    ```
