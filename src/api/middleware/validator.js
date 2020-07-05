@@ -6,7 +6,7 @@ module.exports = ({ expressValidator }) => {
     .withMessage('must be a valid email');
 
   const uuid = expressValidator
-    .check('*.id')
+    .check('product.id')
     .exists()
     .isUUID()
     .withMessage('must be a valid UUID');
@@ -14,6 +14,7 @@ module.exports = ({ expressValidator }) => {
   const fullName = expressValidator
     .check('fullName')
     .exists()
+    .isString()
     .withMessage('must be a valid full name');
 
   const end = (req, res, next) => {

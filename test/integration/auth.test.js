@@ -8,14 +8,10 @@ const fakers = require('../../src/api/helpers/fakers')({
 });
 
 describe('Auth API', () => {
-  let fullName;
-  let email;
-
-  before(() => {
-    fullName = fakers.fullName();
-    let [firstName, lastName] = fullName.split(' ');
-    email = fakers.email(firstName, lastName);
-  });
+  const fullName = fakers.fullName();
+  const [firstName, lastName] = fullName.split(' ');
+  const email = fakers.email(firstName, lastName);
+  let token;
 
   describe('POST /api/auth/register', () => {
     it('expect to be success', (done) => {
@@ -50,7 +46,7 @@ describe('Auth API', () => {
     it('expect invalid full name', (done) => {
       request
         .post('/api/auth/register')
-        .send({ email })
+        .send({ email, fullName: 123 })
         .end((err, res) => {
           if (err) {
             done(err);
@@ -60,9 +56,54 @@ describe('Auth API', () => {
           }
         });
     });
+
+    after((done) => {
+      request
+        .post('/api/auth/signin')
+        .send({ email })
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.have.property('token');
+            token = res.body.token;
+            done();
+          }
+        });
+    });
+
+    after((done) => {
+      request
+        .delete('/api/users')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.status).to.equals(200);
+            expect(res.body).to.have.property('id');
+            done();
+          }
+        });
+    });
   });
 
   describe('POST /api/auth/signin', () => {
+    before((done) => {
+      request
+        .post('/api/auth/register')
+        .send({ email, fullName })
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.status).to.equals(201);
+            done();
+          }
+        });
+    });
+
     it('expect sucess', (done) => {
       request
         .post('/api/auth/signin')
@@ -73,6 +114,7 @@ describe('Auth API', () => {
           } else {
             expect(res.status).to.equal(200);
             expect(res.body).to.have.property('token');
+            token = res.body.token;
             done();
           }
         });
@@ -101,6 +143,21 @@ describe('Auth API', () => {
             done(err);
           } else {
             expect(res.status).to.equal(404);
+            done();
+          }
+        });
+    });
+
+    after((done) => {
+      request
+        .delete('/api/users')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.status).to.equals(200);
+            expect(res.body).to.have.property('id');
             done();
           }
         });

@@ -71,7 +71,7 @@ module.exports = ({ pool, errors }) => {
       });
   };
 
-  const findProductByUser = ({ userId, productId }) => {
+  const findProductByIdAndUserId = ({ userId, productId }) => {
     const command = `
       SELECT
           id,
@@ -87,6 +87,7 @@ module.exports = ({ pool, errors }) => {
       .query(command, [userId, productId])
       .then(({ rows }) => ({ rows }))
       .catch((error) => {
+        console.error(error);
         throw new errors.SQLError(error);
       });
   };
@@ -95,6 +96,6 @@ module.exports = ({ pool, errors }) => {
     create,
     remove,
     findAllByUser,
-    findProductByUser,
+    findProductByIdAndUserId,
   };
 };
