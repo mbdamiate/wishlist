@@ -57,9 +57,9 @@ const wishlistModel = require('../api/model/wishlist.model')({
 });
 
 // controller
-const indexController = require('../api/controller/index.controller')({
-  models: { user: userModel },
-});
+const IndexController = require('../api/controller/index.controller');
+const indexController = new IndexController();
+
 const authController = require('../api/controller/auth.controller')({
   models: { user: userModel },
   utils: { jsonwebtoken },
@@ -75,10 +75,12 @@ const wishlistController = require('../api/controller/wishlist.controller')({
 });
 
 // route
-const indexRoute = require('../api/route/index.route')({
-  route: express.Router({ strict: true }),
-  controller: indexController,
-});
+// const indexRoute = require('../api/route/index.route')({
+//   route: express.Router({ strict: true }),
+//   controller: new IndexController(),
+// });
+const IndexRouter = require('../api/route/index.router');
+
 const authRoute = require('../api/route/auth.route')({
   route: express.Router({ strict: true }),
   controller: authController,
@@ -108,7 +110,7 @@ const config = {
     errorHandler,
   },
   resources: {
-    index: indexRoute,
+    index: new IndexRouter(indexController),
     auth: authRoute,
     user: userRoute,
     wishlist: wishlistRoute,

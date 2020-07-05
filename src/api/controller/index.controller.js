@@ -1,9 +1,9 @@
-module.exports = () => {
-  const health = (_, res) => {
-    return res.status(200).json({ uptime: process.uptime() });
-  };
+class IndexController {
+  constructor() {}
 
-  return {
-    health,
-  };
-};
+  health(_, res) {
+    return res.status(200).json({ uptime: process.uptime() });
+  }
+}
+
+module.exports = IndexController;

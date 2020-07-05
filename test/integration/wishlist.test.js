@@ -124,7 +124,6 @@ describe('Wishlist API', () => {
   });
 
   describe('GET /api/wishlist', () => {
-
     it('expect success', (done) => {
       request
         .get('/api/wishlist')
@@ -132,8 +131,7 @@ describe('Wishlist API', () => {
         .end((err, res) => {
           if (err) {
             done(err);
-          }
-          else {
+          } else {
             expect(res.body).to.have.property('meta');
             expect(res.body).to.have.property('products');
             expect(res.body.products).to.be.an('array');
@@ -145,10 +143,9 @@ describe('Wishlist API', () => {
             expect(firstProduct).to.have.property('brand');
             done();
           }
-        })
+        });
     });
-
-  })
+  });
 
   describe('DELETE /api/wishlist', () => {
     it('expect failure to not send product id', (done) => {
