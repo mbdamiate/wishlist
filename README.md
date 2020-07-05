@@ -56,22 +56,17 @@ The second way, you can clone this repository and run with Docker Compose in few
 
 ## Features
 
-  - [Index](src/api/route/index.md#index)
-    - [Check application availability](src/api/route/index.md#get-apihealth)
-  
-  - [Auth](src/api/route/auth.md#auth)
-    - [Register a new user](src/api/route/auth.md#post-apiauthregister)
-    - [Application sign in](src/api/route/auth.md#post-apiauthsignin)
-  
-  - [Users](src/api/route/user.md#users)
-    - [Remove your registration](src/api/route/user.md#delete-apiusers)
-    - [Retrieves user list](src/api/route/user.md#get-apiusers)
-    - [Edit your registration](src/api/route/user.md#patch-apiusers)
-  
-  - [Wishlist](src/api/route/wishlist.md#wishlist)
-    - [Remove one item from your list](src/api/route/wishlist.md#delete-apiwishlist)
-    - [Retrieves wishlist](src/api/route/wishlist.md#get-apiwishlist)
-    - [Add a new item to your list](src/api/route/wishlist.md#post-apiwishlist)
+| Module                                         | URL                | Method | Token Required | Detail                                                                         |
+| ---------------------------------------------- | ------------------ | ------ | :------------: | ------------------------------------------------------------------------------ |
+| [Index](src/api/route/index.md#index)          | /api/health        | GET    |       No       | [Check application availability](src/api/route/index.md#get-apihealth)         |
+| [Auth](src/api/route/auth.md#auth)             | /api/auth/register | POST   |       No       | [Register a new user](src/api/route/auth.md#post-apiauthregister)              |
+| [Auth](src/api/route/auth.md#auth)             | /api/auth/signin   | POST   |       No       | [Application sign in](src/api/route/auth.md#post-apiauthsignin)                |
+| [Users](src/api/route/user.md#users)           | /api/users         | DELETE |      Yes       | [Remove your registration](src/api/route/user.md#delete-apiusers)              |
+| [Users](src/api/route/user.md#users)           | /api/users         | GET    |      Yes       | [Retrieves user list](src/api/route/user.md#get-apiusers)                      |
+| [Users](src/api/route/user.md#users)           | /api/users         | PATCH  |      Yes       | [Edit your registration](src/api/route/user.md#patch-apiusers)                 |
+| [Wishlist](src/api/route/wishlist.md#wishlist) | /api/wishlist      | DELETE |      Yes       | [Remove one item from your list](src/api/route/wishlist.md#delete-apiwishlist) |
+| [Wishlist](src/api/route/wishlist.md#wishlist) | /api/wishlist      | GET    |      Yes       | [Retrieves wishlist](src/api/route/wishlist.md#get-apiwishlist)                |
+| [Wishlist](src/api/route/wishlist.md#wishlist) | /api/wishlist      | POST   |      Yes       | [Add a new item to your list](src/api/route/wishlist.md#post-apiwishlist)      |
 
 ---
 
@@ -88,7 +83,11 @@ To run integration tests locally, you need:
     ``` bash
     npm i
     ```
-  - Step 3: Then you can run integration test with command
+  - Step 3: Up database
+    ``` bash
+    docker-compose up --build database
+    ```
+  - Step 4: Then you can run integration test with command
     ``` bash
     npm run test:i
     ```
