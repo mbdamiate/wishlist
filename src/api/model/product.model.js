@@ -28,6 +28,6 @@ module.exports = ({ request, errors }) => {
 
   return {
     findById,
-    findManyById,
+    findManyById
   };
 };

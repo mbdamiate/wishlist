@@ -101,6 +101,6 @@ module.exports = ({ pool, errors }) => {
     update,
     remove,
     findAll,
-    findByEmail,
+    findByEmail
   };
 };

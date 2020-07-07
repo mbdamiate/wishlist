@@ -4,14 +4,14 @@ const request = supertest(app);
 const { expect } = require('chai');
 const faker = require('faker');
 const fakers = require('../../src/api/helpers/fakers')({
-  faker,
+  faker
 });
 
 describe('Wishlist API', () => {
   const fullName = fakers.fullName();
   const [firstName, lastName] = fullName.split(' ');
   const email = fakers.email(firstName, lastName);
-  const productId = '1bf0f365-fbdd-4e21-9786-da459d78dd1f';
+  const productId = '2b505fab-d865-e164-345d-efbd4c2045b6';
   let token;
 
   before((done) => {

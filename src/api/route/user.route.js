@@ -5,7 +5,7 @@ module.exports = ({ route, controller, middlewares }) => {
     '/',
     middlewares.validator.fullName,
     middlewares.validator.end,
-    controller.update,
+    controller.update
   );
 
   route.delete('/', controller.remove);

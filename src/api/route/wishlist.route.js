@@ -3,14 +3,14 @@ module.exports = ({ route, controller, middlewares }) => {
     '/',
     middlewares.validator.uuid,
     middlewares.validator.end,
-    controller.create,
+    controller.create
   );
 
   route.delete(
     '/',
     middlewares.validator.uuid,
     middlewares.validator.end,
-    controller.remove,
+    controller.remove
   );
 
   route.get('/', controller.findAll);

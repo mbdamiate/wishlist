@@ -95,6 +95,6 @@ module.exports = ({ pool, errors }) => {
     create,
     remove,
     findAllByUser,
-    findProductByIdAndUserId,
+    findProductByIdAndUserId
   };
 };

@@ -23,7 +23,7 @@ module.exports = ({ expressValidator }) => {
       return next();
     } else {
       return res.status(422).json({
-        errors: expressValidator.validationResult(req).array(),
+        errors: expressValidator.validationResult(req).array()
       });
     }
   };
@@ -32,6 +32,6 @@ module.exports = ({ expressValidator }) => {
     end,
     email,
     uuid,
-    fullName,
+    fullName
   };
 };

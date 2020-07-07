@@ -34,5 +34,5 @@ module.exports = {
   ConflictError,
   NotFoundError,
   SQLError,
-  RequestError,
+  RequestError
 };

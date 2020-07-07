@@ -19,35 +19,35 @@ dotenv.config();
 const app = require('../config/app');
 const database = require('../config/database')({
   pg,
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL
 });
 
 // middleware
 const jwtValidation = require('../api/middleware/jwt-validation')({
   jsonwebtoken,
-  secret: process.env.SECRET,
+  secret: process.env.SECRET
 });
 const logger = require('../api/middleware/logger')({
   expressWinston,
-  winston,
+  winston
 });
 const validator = require('../api/middleware/validator')({
-  expressValidator,
+  expressValidator
 });
 const errorHandler = require('../api/middleware/error-handler')();
 
 // model
 const userModel = require('../api/model/user.model')({
   pool: database,
-  errors,
+  errors
 });
 const productModel = require('../api/model/product.model')({
   request: axios,
-  errors,
+  errors
 });
 const wishlistModel = require('../api/model/wishlist.model')({
   pool: database,
-  errors,
+  errors
 });
 
 // controller
@@ -56,39 +56,36 @@ const indexController = new IndexController();
 
 const authController = require('../api/controller/auth.controller')({
   models: { user: userModel },
-  utils: { jsonwebtoken },
+  utils: { jsonwebtoken }
 });
+
 const userController = require('../api/controller/user.controller')({
-  models: { user: userModel },
+  models: { user: userModel }
 });
 const wishlistController = require('../api/controller/wishlist.controller')({
   models: {
     wishlist: wishlistModel,
-    product: productModel,
-  },
+    product: productModel
+  }
 });
 
 // route
-// const indexRoute = require('../api/route/index.route')({
-//   route: express.Router({ strict: true }),
-//   controller: new IndexController(),
-// });
 const IndexRouter = require('../api/route/index.router');
 
 const authRoute = require('../api/route/auth.route')({
   route: express.Router({ strict: true }),
   controller: authController,
-  middlewares: { validator },
+  middlewares: { validator }
 });
 const userRoute = require('../api/route/user.route')({
   route: express.Router({ strict: true }),
   controller: userController,
-  middlewares: { validator },
+  middlewares: { validator }
 });
 const wishlistRoute = require('../api/route/wishlist.route')({
   route: express.Router({ strict: true }),
   controller: wishlistController,
-  middlewares: { validator },
+  middlewares: { validator }
 });
 
 const config = {
@@ -101,14 +98,14 @@ const config = {
     helmet,
     jwtValidation,
     logger,
-    errorHandler,
+    errorHandler
   },
   resources: {
     index: new IndexRouter(indexController),
     auth: authRoute,
     user: userRoute,
-    wishlist: wishlistRoute,
-  },
+    wishlist: wishlistRoute
+  }
 };
 
 module.exports = app(config);

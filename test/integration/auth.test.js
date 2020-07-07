@@ -4,7 +4,7 @@ const request = supertest(app);
 const { expect } = require('chai');
 const faker = require('faker');
 const fakers = require('../../src/api/helpers/fakers')({
-  faker,
+  faker
 });
 
 describe('Auth API', () => {

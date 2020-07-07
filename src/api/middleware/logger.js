@@ -3,18 +3,18 @@ module.exports = ({ winston, expressWinston }) => {
     transports: [
       new winston.transports.File({
         filename: 'logs/combined.log',
-        level: 'info',
+        level: 'info'
       }),
       new winston.transports.File({
         filename: 'logs/error.log',
-        level: 'error',
-      }),
+        level: 'error'
+      })
     ],
     format: winston.format.json(),
     meta: false,
     msg:
       'HTTP {{req.method}} {{res.statusCode}} {{req.url}} {{res.responseTime}}ms',
-    colorize: false,
+    colorize: false
   });
 
   return logger;

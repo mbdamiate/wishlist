@@ -44,7 +44,10 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "test:i": "mocha test/**/*.test.js",
+    "test:i:w": "nodemon --exec mocha test/**/*.test.js",
     "test:u": "mocha src/**/*.test.js",
-    "format": "prettier --write \"**/*.+(js|json)\""
+    "test:u:w": "nodemon --exec mocha src/**/*.test.js",
+    "format": "prettier --write \"**/*.+(js|json)\"",
+    "format:w": "nodemon --exec npm run format"
   }
 }

@@ -10,16 +10,18 @@ module.exports = ({ models }) => {
       .then(({ id }) => {
         return wishlist.findProductByIdAndUserId({
           userId,
-          productId: id,
+          productId: id
         });
       })
       .then(({ rows }) => {
         if (rows.length > 0) {
-          return res.status(409).json({ message: 'Product already exists' });
+          res.status(409);
+          res.json({ message: 'Product already exists' });
         } else {
           return wishlist.create({ userId, productId: id }).then(({ rows }) => {
             const [first] = rows;
-            return res.status(201).json({ id: first.id });
+            res.status(201);
+            res.json({ id: first.id });
           });
         }
       })
@@ -34,16 +36,21 @@ module.exports = ({ models }) => {
       .then(({ rows }) => {
         if (rows.length > 0) {
           const [first] = rows;
-          return res.status(200).json({ id: first.id });
+          res.status(200);
+          res.json({ id: first.id });
         } else {
-          return res.status(404).json({ message: 'Product not found' });
+          res.status(404);
+          res.json({ message: 'Product not found' });
         }
       })
       .catch(next);
   };
 
   const findAll = (req, res, next) => {
-    const { page } = req.query;
+    let page = 1;
+    if (req.query.page) {
+      page = req.query;
+    }
     const userId = res.locals.user;
     return wishlist
       .findAllByUser({ userId, page })
@@ -51,12 +58,14 @@ module.exports = ({ models }) => {
         if (rows.length > 0) {
           const productsId = rows.map((item) => item.product_id);
           const products = await product.findManyById({
-            productsId,
+            productsId
           });
-          return res.status(200).json({ meta: { page: page || 1 }, products });
+          res.status(200);
+          res.json({ meta: { page: page || 1 }, products });
         } else {
-          return res.status(404).json({
-            message: 'No products found in your wishlist',
+          res.status(404);
+          res.json({
+            message: 'No products found in your wishlist'
           });
         }
       })
@@ -66,6 +75,6 @@ module.exports = ({ models }) => {
   return {
     create,
     remove,
-    findAll,
+    findAll
   };
 };

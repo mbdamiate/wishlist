@@ -26,6 +26,6 @@ module.exports = ({ faker }) => {
   return {
     email,
     fullName,
-    uuid,
+    uuid
   };
 };
